@@ -22,10 +22,10 @@ def test_py_api(
     faasr_delete_file(input1)
 
     # Test getting input2
-    faasr_get_file(local_file="local2.csv", remote_file=input2, remote_folder=folder)
+    faasr_get_file(local_file="local2.txt", remote_file=input2, remote_folder=folder)
 
     # Test getting input3
-    faasr_get_file(local_file="local3.csv", remote_file=input3, remote_folder=folder)
+    faasr_get_file(local_file="local3.txt", remote_file=input3, remote_folder=folder)
 
     # Test listing folder
     print("Getting folder list", faasr_get_folder_list(folder))
