@@ -10,7 +10,7 @@ def create_input(
     input2: str,
     input3: str,
 ) -> None:
-    faasr_log(str(os.environ()))
+    faasr_log(str(os.environ))
     prefix = str(uuid4())
 
     # Create input1
