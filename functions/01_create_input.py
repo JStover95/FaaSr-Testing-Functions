@@ -9,7 +9,7 @@ def create_input(
     input2: str,
     input3: str,
 ) -> None:
-    prefix = uuid4()
+    prefix = str(uuid4())
 
     # Create input1
     with open(input1, "w") as f:
