@@ -1,6 +1,7 @@
+import os
 from uuid import uuid4
 
-from FaaSr_py.client.py_client_stubs import faasr_put_file, faasr_return
+from FaaSr_py.client.py_client_stubs import faasr_log, faasr_put_file
 
 
 def create_input(
@@ -9,6 +10,7 @@ def create_input(
     input2: str,
     input3: str,
 ) -> None:
+    faasr_log(str(os.environ()))
     prefix = str(uuid4())
 
     # Create input1
@@ -38,5 +40,3 @@ def create_input(
         remote_file=f"{prefix}/{input3}",
         remote_folder=folder,
     )
-
-    faasr_return(prefix)
