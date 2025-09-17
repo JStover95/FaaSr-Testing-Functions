@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import sys
+import time
 import uuid
 from datetime import UTC, datetime
 from enum import Enum
@@ -10,6 +11,7 @@ from typing import Any
 
 import boto3
 from FaaSr_py.engine.faasr_payload import FaaSrPayload
+from FaaSr_py.helpers.s3_helper_functions import get_invocation_folder
 from pydantic import BaseModel, Field
 
 from integration_test_framework.utils import LOGGER_NAME
@@ -41,6 +43,7 @@ class FunctionStatus(Enum):
     RUNNING = "running"
     COMPLETED = "completed"
     FAILED = "failed"
+    SKIPPED = "skipped"
     TIMEOUT = "timeout"
 
 
@@ -144,6 +147,10 @@ class FaaSrIntegrationTester:
 
         self.workflow_file = workflow_file
         self.workflow_data = self._load_workflow()
+        self.function_statuses: dict[str, FunctionStatus] = {
+            function_name: FunctionStatus.PENDING
+            for function_name in self.workflow_data["ActionList"].keys()
+        }
         self.faasr_payload = None
         self.test_result = None
         self.timeout = timeout
@@ -267,6 +274,92 @@ class FaaSrIntegrationTester:
         except Exception as e:
             self.logger.error(f"Failed to trigger workflow: {e}")
             raise WorkflowTriggerError(f"Failed to trigger workflow: {e}")
+
+    def _monitor_workflow_execution(self):
+        """Monitor the workflow execution"""
+        self.logger.info(
+            f"Monitoring workflow execution for functions: {', '.join(self.function_statuses.keys())}"
+        )
+
+        start_time = datetime.now(UTC)
+
+        while time.time() - start_time < self.timeout:
+            for function_name, status in self.function_statuses.items():
+                if status == FunctionStatus.PENDING or status == FunctionStatus.RUNNING:
+                    if self._check_function_completion(function_name):
+                        self._set_function_status(
+                            function_name,
+                            FunctionStatus.COMPLETED,
+                        )
+                        self.logger.info(f"Function {function_name} completed")
+                    elif self._check_function_running(function_name):
+                        self._set_function_status(
+                            function_name,
+                            FunctionStatus.RUNNING,
+                        )
+                        all_completed = False
+
+            if all_completed:
+                self.logger.info("All functions completed")
+                break
+
+            time.sleep(self.check_interval)
+
+        # Check for timeouts
+        for function_name, status in self.function_statuses.items():
+            if status == FunctionStatus.PENDING or status == FunctionStatus.RUNNING:
+                self._set_function_status(
+                    function_name,
+                    FunctionStatus.TIMEOUT,
+                )
+                self.logger.warning(f"Function {function_name} timed out")
+
+    def _check_function_completion(self, function_name: str) -> bool:
+        """Check if a function has completed by looking for .done file in S3"""
+        try:
+            # Get the invocation folder path
+            invocation_folder = get_invocation_folder(self.faasr_payload)
+
+            # Check for .done file
+            done_file_path = (
+                f"{invocation_folder}/function_completions/{function_name}.done"
+            )
+
+            # List objects with this prefix
+            response = self.s3_client.list_objects_v2(
+                Bucket=self.bucket_name,
+                Prefix=str(done_file_path),
+            )
+
+            return "Contents" in response and len(response["Contents"]) > 0
+
+        except Exception as e:
+            self.logger.error(f"Error checking completion for {function_name}: {e}")
+            return False
+
+    def _check_function_running(self, function_name: str) -> bool:
+        """Check if a function is running by looking for log files in S3"""
+        try:
+            # Get the invocation folder path
+            invocation_folder = get_invocation_folder(self.faasr_payload)
+
+            # Check for log files
+            log_prefix = f"{invocation_folder}/{function_name}"
+
+            response = self.s3_client.list_objects_v2(
+                Bucket=self.bucket_name,
+                Prefix=str(log_prefix),
+            )
+
+            return "Contents" in response and len(response["Contents"]) > 0
+
+        except Exception as e:
+            self.logger.error(f"Error checking running status for {function_name}: {e}")
+            return False
+
+    def _set_function_status(self, function_name: str, status: FunctionStatus):
+        """Set the status of a function"""
+        self.function_statuses[function_name] = status
 
 
 def main() -> int:
