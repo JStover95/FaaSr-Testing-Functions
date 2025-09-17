@@ -2,6 +2,8 @@ from uuid import uuid4
 
 from FaaSr_py.client.py_client_stubs import faasr_put_file
 
+from functions.utils import get_invocation_id
+
 
 def create_input(
     folder: str,
@@ -9,6 +11,8 @@ def create_input(
     input2: str,
     input3: str,
 ) -> None:
+    invocation_id = get_invocation_id()
+    print("Invocation ID:", invocation_id)
     prefix = str(uuid4())
 
     # Create input1
