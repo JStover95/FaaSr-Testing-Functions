@@ -1,8 +1,7 @@
-from uuid import uuid4
-
 from FaaSr_py.client.py_client_stubs import faasr_put_file
 
 from .utils import get_invocation_id
+from .utils.enums import CreateInput
 
 
 def create_input(
@@ -12,33 +11,31 @@ def create_input(
     input3: str,
 ) -> None:
     invocation_id = get_invocation_id()
-    print("Invocation ID:", invocation_id)
-    prefix = str(uuid4())
 
     # Create input1
     with open(input1, "w") as f:
-        f.write("Test input1")
+        f.write(CreateInput.INPUT_1_CONTENT.value)
 
     # Create input2
     with open(input2, "w") as f:
-        f.write("Test input2")
+        f.write(CreateInput.INPUT_2_CONTENT.value)
 
     # Create input3
     with open(input3, "w") as f:
-        f.write("Test input3")
+        f.write(CreateInput.INPUT_3_CONTENT.value)
 
     faasr_put_file(
         local_file=input1,
-        remote_file=f"{prefix}/{input1}",
+        remote_file=f"{invocation_id}/{input1}",
         remote_folder=folder,
     )
     faasr_put_file(
         local_file=input2,
-        remote_file=f"{prefix}/{input2}",
+        remote_file=f"{invocation_id}/{input2}",
         remote_folder=folder,
     )
     faasr_put_file(
         local_file=input3,
-        remote_file=f"{prefix}/{input3}",
+        remote_file=f"{invocation_id}/{input3}",
         remote_folder=folder,
     )
