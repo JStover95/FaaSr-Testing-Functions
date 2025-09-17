@@ -1,12 +1,15 @@
 source("utils/utils.R")
 source("utils/enums.R")
 
+
+
 test_R_api <- function(folder, input1, input2, input3, output1, output2) {
   invocation_id = get_invocation_id()
   
-  #Test deleting input1
-  remote_filename1 <- paste0(invocation_id, '/', input1)
-  faasr_delete_file(remote_filename)
+  #Test deleting input1 - CONCURRENCY ISSUE, since this file may be
+  #deleted by test_py_api already
+  #remote_filename1 <- paste0(invocation_id, '/', input1)
+  #faasr_delete_file(remote_filename)
   
   #Test getting input2
   remote_filename2 <- paste0(invocation_id, '/', input2)
