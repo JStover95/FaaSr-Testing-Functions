@@ -6,8 +6,10 @@ from FaaSr_py.client.py_client_stubs import (
     faasr_log,
     faasr_put_file,
     faasr_rank,
-    faasr_return,
 )
+
+from .utils import get_invocation_id
+from .utils.enums import TestPyApi
 
 
 def test_py_api(
@@ -18,14 +20,24 @@ def test_py_api(
     output1: str,
     output2: str,
 ) -> None:
+    invocation_id = get_invocation_id()
+
     # Test deleting input1
-    faasr_delete_file(input1)
+    faasr_delete_file(f"{invocation_id}/{input1}")
 
     # Test getting input2
-    faasr_get_file(local_file="local2.txt", remote_file=input2, remote_folder=folder)
+    faasr_get_file(
+        local_file=input2,
+        remote_file=f"{invocation_id}/{input2}",
+        remote_folder=folder,
+    )
 
     # Test getting input3
-    faasr_get_file(local_file="local3.txt", remote_file=input3, remote_folder=folder)
+    faasr_get_file(
+        local_file=input3,
+        remote_file=f"{invocation_id}/{input3}",
+        remote_folder=folder,
+    )
 
     # Test listing folder
     print("Getting folder list", faasr_get_folder_list(folder))
@@ -37,17 +49,14 @@ def test_py_api(
     faasr_log("Test log")
 
     # Test putting output1
-    with open("local1.txt", "w") as f:
-        f.write("Test output1")
-    faasr_put_file(local_file="local1.txt", remote_file=output1, remote_folder=folder)
+    with open(output1, "w") as f:
+        f.write(TestPyApi.OUTPUT_1_CONTENT.value)
+    faasr_put_file(local_file=output1, remote_file=output1, remote_folder=folder)
 
     # Test putting output2
-    with open("local2.txt", "w") as f:
-        f.write("Test output2")
-    faasr_put_file(local_file="local2.txt", remote_file=output2, remote_folder=folder)
+    with open(output2, "w") as f:
+        f.write(TestPyApi.OUTPUT_2_CONTENT.value)
+    faasr_put_file(local_file=output2, remote_file=output2, remote_folder=folder)
 
     # Test rank
     print("Getting rank", faasr_rank())
-
-    # Return
-    faasr_return("Test return")
