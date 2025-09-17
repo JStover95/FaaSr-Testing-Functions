@@ -5,6 +5,7 @@ class CreateInput(Enum):
     INPUT_1_CONTENT = "Test input1"
     INPUT_2_CONTENT = "Test input2"
     INPUT_3_CONTENT = "Test input3"
+    INPUT_4_CONTENT = "Test input4" 
 
 
 class TestPyApi(Enum):

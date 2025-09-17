@@ -9,10 +9,11 @@ def create_input(
     input1: str,
     input2: str,
     input3: str,
+    input4: str,
 ) -> None:
     invocation_id = get_invocation_id()
 
-    # Create input1
+    # Create input1 (input to be deleted using Python API)
     with open(input1, "w") as f:
         f.write(CreateInput.INPUT_1_CONTENT.value)
 
@@ -23,6 +24,10 @@ def create_input(
     # Create input3
     with open(input3, "w") as f:
         f.write(CreateInput.INPUT_3_CONTENT.value)
+        
+    # Create input4 (input to be deleted using R API)
+    with open(input4, "w") as f:
+        f.write(CreateInput.INPUT_4_CONTENT.value)
 
     faasr_put_file(
         local_file=input1,
@@ -37,5 +42,11 @@ def create_input(
     faasr_put_file(
         local_file=input3,
         remote_file=f"{invocation_id}/{input3}",
+        remote_folder=folder,
+    )
+    
+    faasr_put_file(
+        local_file=input4,
+        remote_file=f"{invocation_id}/{input4}",
         remote_folder=folder,
     )

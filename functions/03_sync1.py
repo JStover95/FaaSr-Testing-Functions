@@ -7,17 +7,19 @@ from FaaSr_py.client.py_client_stubs import (
 
 from .utils.enums import TestPyApi
 
-#Check if input1 is deleted, input2 & input 3 remained
+#Check if input1 and input 4 is deleted, input2 & input 3 remained
 #Validate content of output1 and output2 for R and Python
 
 def sync1(folder: str,
          input1: str,
          input2: str,
          input3: str,
+         input4: str,
          output1_py: str,
          output2_py: str,
          output1_R: str,
-         output2_R: str):
+         output2_R: str,
+         ):
     
     folder_list = faasr_get_folder_list(prefix=folder)
     
@@ -26,12 +28,16 @@ def sync1(folder: str,
         if input1 in folder_list:
             raise AssertionError(f"{input1} should be deleted. Still found in {folder} folder.")
         
+        #Test if input4 is deleted
+        if input1 in folder_list:
+            raise AssertionError(f"{input4} should be deleted. Still found in {folder} folder.")
+        
         #Test if input2 and input2 are still in the folder
         if input2 not in folder_list:
-            raise AssertionError(f"{input2} should be deleted. Still found in {folder} folder.")
+            raise AssertionError(f"{input2} not in {folder} folder.")
         
         if input3 not in folder_list:
-            raise AssertionError(f"{input3} should be deleted. Still found in {folder} folder.")
+            raise AssertionError(f"{input3} not in {folder} folder.")
         
         #Check if any output files are missing
         if (output1_py not in folder_list or output2_py not in folder_list
