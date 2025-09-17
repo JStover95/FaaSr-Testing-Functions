@@ -1,11 +1,7 @@
 from FaaSr_py.client.py_client_stubs import (
     faasr_delete_file,
     faasr_get_file,
-    faasr_get_folder_list,
-    faasr_get_s3_creds,
-    faasr_log,
     faasr_put_file,
-    faasr_rank,
 )
 
 from .utils import get_invocation_id
@@ -39,15 +35,6 @@ def test_py_api(
         remote_folder=folder,
     )
 
-    # Test listing folder
-    print("Getting folder list", faasr_get_folder_list(folder))
-
-    # Test getting s3 creds
-    print("Getting s3 creds", faasr_get_s3_creds())
-
-    # Test logging
-    faasr_log("Test log")
-
     # Test putting output1
     with open(output1, "w") as f:
         f.write(TestPyApi.OUTPUT_1_CONTENT.value)
@@ -57,6 +44,3 @@ def test_py_api(
     with open(output2, "w") as f:
         f.write(TestPyApi.OUTPUT_2_CONTENT.value)
     faasr_put_file(local_file=output2, remote_file=output2, remote_folder=folder)
-
-    # Test rank
-    print("Getting rank", faasr_rank())
