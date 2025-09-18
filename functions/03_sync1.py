@@ -27,7 +27,7 @@ def sync1(folder: str,
             raise AssertionError(f"{input1} should be deleted. Still found in {folder} folder.")
         
         #Test if input4 is deleted
-        if input1 in folder_list:
+        if input4 in folder_list:
             raise AssertionError(f"{input4} should be deleted. Still found in {folder} folder.")
         
         #Test if input2 and input2 are still in the folder

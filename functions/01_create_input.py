@@ -21,7 +21,7 @@ def create_input(
     with open(input2, "w") as f:
         f.write(CreateInput.INPUT_2_CONTENT.value)
 
-    # Create input3
+    # Create input3 (csv format, for arrow api)
     with open(input3, "w") as f:
         f.write(CreateInput.INPUT_3_CONTENT.value)
         
