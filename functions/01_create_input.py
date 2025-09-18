@@ -29,6 +29,8 @@ def create_input(
     with open(input4, "w") as f:
         f.write(CreateInput.INPUT_4_CONTENT.value)
 
+    # Put all input files into S3 bucket
+    
     faasr_put_file(
         local_file=input1,
         remote_file=f"{invocation_id}/{input1}",
