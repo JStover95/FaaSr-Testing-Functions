@@ -1,8 +1,6 @@
 from FaaSr_py.client.py_client_stubs import (
     faasr_get_file,
-    faasr_put_file,
     faasr_get_folder_list,
-    faasr_return,
 )
 
 from .utils.enums import TestPyApi
@@ -77,7 +75,7 @@ def sync1(folder: str,
     #Return false if any of the tests failed
     except AssertionError as e:
         print(e)
-        faasr_return(False)
+        return False
     
     #Return true if all tests passed
-    faasr_return(True)
+    return True
