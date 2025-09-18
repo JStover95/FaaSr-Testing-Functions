@@ -1,5 +1,6 @@
 source("utils/utils.R")
 source("utils/enums.R")
+library(arrow)
 
 test_R_api <- function(folder, input4, input2, input3, output1, output2) {
   invocation_id = get_invocation_id()
@@ -12,9 +13,10 @@ test_R_api <- function(folder, input4, input2, input3, output1, output2) {
   remote_filename2 <- paste0(invocation_id, '/', input2)
   faasr_get_file(remote_folder=folder, remote_file=remote_filename2, local_file=input2)
   
-  #Test getting input3
-  remote_filename3 <- paste0(invocation_id, '/', input3)
-  faasr_get_file(remote_folder=folder, remote_file=remote_filename3, local_file=input3)
+  #Test getting input3 using arrow API
+  mys3 <- faasr_arrow_s3_bucket(faasr_prefix=folder)
+  remote_path3 <- mys3$path(file.path(folder, invocation_id, input3))
+  arrow_input3 <- arrow::read_csv_arrow(remote_path3)
   
   #Test putting output1
   writeLines(unlist(TestRApi)[1], output1)
