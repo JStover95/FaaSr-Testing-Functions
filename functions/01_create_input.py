@@ -1,7 +1,7 @@
 from FaaSr_py.client.py_client_stubs import faasr_log, faasr_put_file
 
-from utils import get_invocation_id
-from utils.enums import CreateInput
+from .utils import get_invocation_id
+from .utils.enums import CreateInput
 
 
 def create_input(
