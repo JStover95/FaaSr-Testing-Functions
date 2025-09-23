@@ -1,10 +1,27 @@
-cat("Current working directory:", getwd(), "\n")
-cat("List files:", list.files(), "\n")
-source("./test-functions/utils/utils.R")
-source("./test-functions/utils/enums.R")
 library(arrow)
 
 test_r_api <- function(folder, input4, input2, input3, output1, output2) {
+
+  get_invocation_id <- function() {
+    overwritten <- Sys.getenv("OVERWRITTEN", unset = NA)
+    if (is.na(overwritten)) {
+      stop("OVERWRITTEN is not set")
+    }
+    
+    parsed <- tryCatch(fromJSON(overwritten), error = function(e) {
+      stop("OVERWRITTEN is not valid JSON")
+    })
+    
+    if (!is.list(parsed) ||
+        is.null(parsed$InvocationID) ||
+        !is.character(parsed$InvocationID) ||
+        nchar(trimws(parsed$InvocationID)) == 0) {
+      stop("InvocationID is not set")
+    }
+    
+    return(parsed$InvocationID)
+  }
+
   invocation_id = get_invocation_id()
   msg = paste0("Using invocation ID: ", invocation_id)
   faasr_log(msg)
@@ -27,11 +44,11 @@ test_r_api <- function(folder, input4, input2, input3, output1, output2) {
   arrow_input3 <- arrow::read_csv_arrow(remote_path3)
   
   # Test putting output1
-  writeLines(unlist(TestRApi)[1], output1)
+  writeLines("Test output1", output1)
   faasr_put_file(local_file=output1, remote_folder_folder, remote_output=output1)
   
   # Test putting output2
-  writeLines(unlist(TestRApi)[2], output2)
+  writeLines("Test output2", output2)
   faasr_put_file(local_file=output2, remote_folder_folder, remote_output=output2)
   
 }
