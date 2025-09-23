@@ -3,6 +3,7 @@ source("utils/enums.R")
 library(arrow)
 
 test_r_api <- function(folder, input4, input2, input3, output1, output2) {
+  cat("Current working directory:", getwd(), "\n")
   invocation_id = get_invocation_id()
   msg = paste0("Using invocation ID: ", invocation_id)
   faasr_log(msg)
