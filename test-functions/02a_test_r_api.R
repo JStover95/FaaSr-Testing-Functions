@@ -1,4 +1,5 @@
 cat("Current working directory:", getwd(), "\n")
+cat("List files:", list.files(), "\n")
 source("./test-functions/utils/utils.R")
 source("./test-functions/utils/enums.R")
 library(arrow)
