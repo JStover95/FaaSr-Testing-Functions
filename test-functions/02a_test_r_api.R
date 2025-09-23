@@ -28,7 +28,7 @@ test_r_api <- function(folder, input4, input2, input3, output1, output2) {
 
   # Test deleting input4
   remote_filename1 <- paste0(invocation_id, '/', input4)
-  faasr_delete_file(remote_filename)
+  faasr_delete_file(remote_filename1)
   msg = paste0("Deleted input4: ", input4)
   faasr_log(msg)
   
