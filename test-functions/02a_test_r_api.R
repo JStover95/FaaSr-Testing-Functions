@@ -1,4 +1,5 @@
 library(arrow)
+library(FaaSr)
 
 test_r_api <- function(folder, input4, input2, input3, output1, output2) {
 
