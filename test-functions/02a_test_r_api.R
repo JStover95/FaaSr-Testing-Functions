@@ -45,10 +45,10 @@ test_r_api <- function(folder, input4, input2, input3, output1, output2) {
   
   # Test putting output1
   writeLines("Test output1", output1)
-  faasr_put_file(local_file=output1, remote_folder_folder, remote_output=output1)
+  faasr_put_file(local_file=output1, remote_folder=folder, remote_file=output1)
   
   # Test putting output2
   writeLines("Test output2", output2)
-  faasr_put_file(local_file=output2, remote_folder_folder, remote_output=output2)
+  faasr_put_file(local_file=output2, remote_folder=folder, remote_file=output2)
   
 }
