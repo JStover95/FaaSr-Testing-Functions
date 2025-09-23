@@ -1,5 +1,4 @@
 library(arrow)
-library(FaaSr)
 
 test_r_api <- function(folder, input4, input2, input3, output1, output2) {
 
@@ -40,9 +39,9 @@ test_r_api <- function(folder, input4, input2, input3, output1, output2) {
   faasr_log(msg)
   
   # Test getting input3 using arrow API
-  mys3 <- faasr_arrow_s3_bucket(faasr_prefix=folder)
-  remote_path3 <- mys3$path(file.path(folder, invocation_id, input3))
-  arrow_input3 <- arrow::read_csv_arrow(remote_path3)
+  # mys3 <- faasr_arrow_s3_bucket(faasr_prefix=folder)
+  # remote_path3 <- mys3$path(file.path(folder, invocation_id, input3))
+  # arrow_input3 <- arrow::read_csv_arrow(remote_path3)
   
   # Test putting output1
   writeLines("Test output1", output1)
