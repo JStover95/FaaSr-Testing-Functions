@@ -1,6 +1,6 @@
 cat("Current working directory:", getwd(), "\n")
-source("utils/utils.R")
-source("utils/enums.R")
+source("actions/test-functions/utils/utils.R")
+source("actions/test-functions/utils/enums.R")
 library(arrow)
 
 test_r_api <- function(folder, input4, input2, input3, output1, output2) {
