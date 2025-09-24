@@ -45,15 +45,17 @@ def test_py_api(
     # Test putting output1
     with open(output1, "w") as f:
         f.write(TestPyApi.OUTPUT_1_CONTENT.value)
-    faasr_put_file(local_file=output1, remote_file=output1, remote_folder=folder)
+    remote_file = f"{invocation_id}/{output1}"
+    faasr_put_file(local_file=output1, remote_file=remote_file, remote_folder=folder)
     faasr_log(
-        f"Saved remote file: {output1} to {output1} with content: {TestPyApi.OUTPUT_1_CONTENT.value}"
+        f"Created output file: {remote_file} with content: {TestPyApi.OUTPUT_1_CONTENT.value}"
     )
 
     # Test putting output2
     with open(output2, "w") as f:
         f.write(TestPyApi.OUTPUT_2_CONTENT.value)
-    faasr_put_file(local_file=output2, remote_file=output2, remote_folder=folder)
+    remote_file = f"{invocation_id}/{output2}"
+    faasr_put_file(local_file=output2, remote_file=remote_file, remote_folder=folder)
     faasr_log(
-        f"Saved remote file: {output2} to {output2} with content: {TestPyApi.OUTPUT_2_CONTENT.value}"
+        f"Created output file: {remote_file} with content: {TestPyApi.OUTPUT_2_CONTENT.value}"
     )
