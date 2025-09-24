@@ -23,6 +23,7 @@ def sync1(folder: str,
     invocation_id = get_invocation_id()
     remote_prefix = f"{folder}/{invocation_id}"
     folder_list = faasr_get_folder_list(prefix=remote_prefix)
+    faasr_log(f"List of objects in {remote_prefix}: {folder_list}")
     
     try:
         # Test if input1 is deleted
@@ -77,7 +78,7 @@ def sync1(folder: str,
     
     # Return false if any of the tests failed -> 04b_test_dontrun_false.py will be invoked
     except AssertionError as e:
-        faasr_log(e)
+        faasr_log(str(e))
         return False
     
     # Return true if all tests passed -> 04a_test_run_true.py will be invoked
