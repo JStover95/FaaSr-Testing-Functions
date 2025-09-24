@@ -1,10 +1,10 @@
 library(arrow)
 
 test_r_api <- function(folder, input4, input2, input3, output1, output2) {
-  cat("faasr version: ", as.character(utils::packageVersion("FaaSr")), "\n")
+  cat("faasr version: ", as.character(utils::packageVersion("faasr")), "\n")
   print(grep("faasr_arrow_s3_bucket", ls("package:faasr"), value = TRUE))
   getAnywhere("faasr_arrow_s3_bucket")
-  
+
   get_invocation_id <- function() {
     overwritten <- Sys.getenv("OVERWRITTEN", unset = NA)
     if (is.na(overwritten)) {
