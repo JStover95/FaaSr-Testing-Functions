@@ -47,14 +47,14 @@ test_r_api <- function(folder, input4, input2, input3, output1, output2) {
   writeLines("Test output1", output1)
   remote_file <- paste0(invocation_id, '/', output1)
   faasr_put_file(local_file=output1, remote_folder=folder, remote_file=remote_file)
-  msg = paste0("Created output file: ", remote_filename, " with content: Test output1")
+  msg = paste0("Created output file: ", remote_file, " with content: Test output1")
   faasr_log(msg)
   
   # Test putting output2
   writeLines("Test output2", output2)
   remote_file <- paste0(invocation_id, '/', output2)
   faasr_put_file(local_file=output2, remote_folder=folder, remote_file=remote_file)
-  msg = paste0("Created output file: ", remote_filename, " with content: Test output2")
+  msg = paste0("Created output file: ", remote_file, " with content: Test output2")
   faasr_log(msg)
 
 }
