@@ -30,9 +30,13 @@ def sync1(folder: str,
         if input1 in folder_list:
             raise AssertionError(f"{input1} should be deleted. Still found in {folder} folder.")
         
+        faasr_log(f"Pass: {input1} is deleted.")
+        
         # Test if input4 is deleted
         if input4 in folder_list:
             raise AssertionError(f"{input4} should be deleted. Still found in {folder} folder.")
+        
+        faasr_log(f"Pass: {input4} is deleted.")
         
         # Test if input2 and input3 are still in the folder
         if input2 not in folder_list:
@@ -41,11 +45,15 @@ def sync1(folder: str,
         if input3 not in folder_list:
             raise AssertionError(f"{input3} not in {folder} folder.")
         
+        faasr_log(f"Pass: {input2} and {input3} are still in the folder.")
+        
         # Check if any output files are missing
         if (output1_py not in folder_list or output2_py not in folder_list
             or output1_R not in folder_list or output2_R not in folder_list):
             raise AssertionError(f"Output file(s) missing in {folder} folder")
-            
+        
+        faasr_log("Pass: all output files are in the folder.")
+        
         # Validate content of output files
         faasr_get_file(local_file=output1_py, remote_file=output1_py, remote_folder=folder)
         with open(output1_py, "r") as f:
@@ -54,12 +62,16 @@ def sync1(folder: str,
             if content != TestPyApi.OUTPUT_1_CONTENT.value:
                 raise AssertionError(f"Incorrect content in {output1_py}")
             
+        faasr_log(f"Pass: {output1_py} has the correct content: {TestPyApi.OUTPUT_1_CONTENT}")
+            
         faasr_get_file(local_file=output2_py, remote_file=output2_py, remote_folder=folder)
         with open(output2_py, "r") as f:
             content = f.read()
             content = content.strip()
             if content != TestPyApi.OUTPUT_2_CONTENT.value:
                 raise AssertionError(f"Incorrect content in {output2_py}")
+            
+        faasr_log(f"Pass: {output2_py} has the correct content: {TestPyApi.OUTPUT_2_CONTENT}")
             
         # Note: Content of output1 and output2 for both R and Python are identical. 
         faasr_get_file(local_file=output1_R, remote_file=output1_R, remote_folder=folder)
@@ -68,6 +80,8 @@ def sync1(folder: str,
             content = content.strip()
             if content != TestPyApi.OUTPUT_1_CONTENT.value:
                 raise AssertionError(f"Incorrect content in {output1_R}")
+            
+        faasr_log(f"Pass: {output1_R} has the correct content: {TestPyApi.OUTPUT_1_CONTENT}")
         
         faasr_get_file(local_file=output2_R, remote_file=output2_R, remote_folder=folder)
         with open(output2_R, "r") as f:
@@ -75,6 +89,8 @@ def sync1(folder: str,
             content = content.strip()
             if content != TestPyApi.OUTPUT_2_CONTENT.value:
                 raise AssertionError(f"Incorrect content in {output2_R}")
+            
+        faasr_log(f"Pass: {output2_R} has the correct content: {TestPyApi.OUTPUT_2_CONTENT}")
     
     # Return false if any of the tests failed -> 04b_test_dontrun_false.py will be invoked
     except AssertionError as e:
