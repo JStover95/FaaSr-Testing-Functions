@@ -35,7 +35,7 @@ test_r_api <- function(folder, input4, input2, input3, output1, output2) {
   # Test getting input2
   remote_file <- paste0(invocation_id, '/', input2)
   faasr_get_file(remote_folder=folder, remote_file=remote_file, local_file=input2)
-  msg = paste0("Saved remote file: ", input2, " to ", input2)
+  msg = paste0("Saved remote file: ", remote_file, " to ", input2)
   faasr_log(msg)
   
   # Test getting input3 using arrow API
