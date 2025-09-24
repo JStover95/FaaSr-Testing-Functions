@@ -22,7 +22,7 @@ def sync1(folder: str,
          ):
     invocation_id = get_invocation_id()
     remote_prefix = f"{folder}/{invocation_id}"
-    folder_list = faasr_get_folder_list(faasr_prefix=remote_prefix)
+    folder_list = faasr_get_folder_list(prefix=remote_prefix)
     
     try:
         # Test if input1 is deleted
