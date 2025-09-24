@@ -70,7 +70,7 @@ def sync1(folder: str,
             if content != TestPyApi.OUTPUT_1_CONTENT.value:
                 raise AssertionError(f"Incorrect content in {output1_py}")
             
-        faasr_log(f"Pass: {output1_py} has the correct content: {TestPyApi.OUTPUT_1_CONTENT}")
+        faasr_log(f"Pass: {output1_py} has the correct content: {TestPyApi.OUTPUT_1_CONTENT.value}")
             
         faasr_get_file(local_file=output2_py, remote_file=output2_py, remote_folder=folder)
         with open(output2_py, "r") as f:
@@ -79,7 +79,7 @@ def sync1(folder: str,
             if content != TestPyApi.OUTPUT_2_CONTENT.value:
                 raise AssertionError(f"Incorrect content in {output2_py}")
             
-        faasr_log(f"Pass: {output2_py} has the correct content: {TestPyApi.OUTPUT_2_CONTENT}")
+        faasr_log(f"Pass: {output2_py} has the correct content: {TestPyApi.OUTPUT_2_CONTENT.value}")
             
         # Note: Content of output1 and output2 for both R and Python are identical. 
         faasr_get_file(local_file=output1_R, remote_file=output1_R, remote_folder=folder)
@@ -89,7 +89,7 @@ def sync1(folder: str,
             if content != TestPyApi.OUTPUT_1_CONTENT.value:
                 raise AssertionError(f"Incorrect content in {output1_R}")
             
-        faasr_log(f"Pass: {output1_R} has the correct content: {TestPyApi.OUTPUT_1_CONTENT}")
+        faasr_log(f"Pass: {output1_R} has the correct content: {TestPyApi.OUTPUT_1_CONTENT.value}")
         
         faasr_get_file(local_file=output2_R, remote_file=output2_R, remote_folder=folder)
         with open(output2_R, "r") as f:
@@ -98,7 +98,7 @@ def sync1(folder: str,
             if content != TestPyApi.OUTPUT_2_CONTENT.value:
                 raise AssertionError(f"Incorrect content in {output2_R}")
             
-        faasr_log(f"Pass: {output2_R} has the correct content: {TestPyApi.OUTPUT_2_CONTENT}")
+        faasr_log(f"Pass: {output2_R} has the correct content: {TestPyApi.OUTPUT_2_CONTENT.value}")
     
     # Return false if any of the tests failed -> 04b_test_dontrun_false.py will be invoked
     except AssertionError as e:
