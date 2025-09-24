@@ -21,7 +21,7 @@ def test_py_api(
     faasr_log(f"Using invocation ID: {invocation_id}")
 
     # Test deleting input1
-    faasr_delete_file(f"{invocation_id}/{input1}")
+    faasr_delete_file(remote_folder=folder, remote_file=f"{invocation_id}/{input1}")
     faasr_log(f"Deleted input1: {input1}")
 
     # Test getting input2
