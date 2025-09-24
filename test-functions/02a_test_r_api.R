@@ -1,9 +1,8 @@
 library(arrow)
+install.packages('FaaSr')
+library(FaaSr)
 
 test_r_api <- function(folder, input4, input2, input3, output1, output2) {
-  getAnywhere("faasr_arrow_s3_bucket")
-  sessionInfo()
-  
   get_invocation_id <- function() {
     overwritten <- Sys.getenv("OVERWRITTEN", unset = NA)
     if (is.na(overwritten)) {
