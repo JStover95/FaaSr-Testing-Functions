@@ -12,8 +12,8 @@ def test_rank(folder: str)-> None:
     faasr_log(f"Using invocation ID: {invocation_id}")
     
     rank_list = faasr_rank()
-    rank_number = rank_list["Rank"]
-    rank_max = rank_list['MaxRank']
+    rank_number = rank_list.get("rank")
+    rank_max = rank_list.get("max_rank")
     
     faasr_log(f"Currently on {rank_number} out of {rank_max}.")
     
