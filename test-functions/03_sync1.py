@@ -19,7 +19,7 @@ def sync1(folder: str,
          output2_py: str,
          output1_R: str,
          output2_R: str,
-         ):
+         )->None:
     invocation_id = get_invocation_id()
     remote_prefix = f"{folder}/{invocation_id}"
     folder_list = faasr_get_folder_list(prefix=remote_prefix)
@@ -27,35 +27,35 @@ def sync1(folder: str,
     
     try:
         # Test if input1 is deleted
-        remote_input1 = f"{folder}/{invocation_id}/{input1}"
+        remote_input1 = f"{remote_prefix}/{input1}"
         if remote_input1 in folder_list:
             raise AssertionError(f"{input1} should be deleted. Still found in {folder} folder.")
         
         faasr_log(f"Pass: {input1} is deleted.")
         
         # Test if input4 is deleted
-        remote_input4 = f"{folder}/{invocation_id}/{input4}"
+        remote_input4 = f"{remote_prefix}/{input4}"
         if remote_input4 in folder_list:
             raise AssertionError(f"{input4} should be deleted. Still found in {folder} folder.")
         
         faasr_log(f"Pass: {input4} is deleted.")
         
         # Test if input2 and input3 are still in the folder
-        remote_input2 = f"{folder}/{invocation_id}/{input2}"
+        remote_input2 = f"{remote_prefix}/{input2}"
         if remote_input2 not in folder_list:
             raise AssertionError(f"{input2} not in {folder} folder.")
         
-        remote_input3 = f"{folder}/{invocation_id}/{input3}"
+        remote_input3 = f"{remote_prefix}/{input3}"
         if remote_input3 not in folder_list:
             raise AssertionError(f"{input3} not in {folder} folder.")
         
         faasr_log(f"Pass: {input2} and {input3} are still in the folder.")
         
         # Check if any output files are missing
-        remote_output1_py = f"{folder}/{invocation_id}/{output1_py}"
-        remote_output2_py = f"{folder}/{invocation_id}/{output2_py}"
-        remote_output1_R = f"{folder}/{invocation_id}/{output1_R}"
-        remote_output2_R = f"{folder}/{invocation_id}/{output2_R}"
+        remote_output1_py = f"{remote_prefix}/{output1_py}"
+        remote_output2_py = f"{remote_prefix}/{output2_py}"
+        remote_output1_R = f"{remote_prefix}/{output1_R}"
+        remote_output2_R = f"{remote_prefix}/{output2_R}"
         if (remote_output1_py not in folder_list or remote_output2_py not in folder_list
             or remote_output1_R not in folder_list or remote_output2_R not in folder_list):
             raise AssertionError(f"Output file(s) missing in {folder} folder")
