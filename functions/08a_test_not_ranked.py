@@ -1,7 +1,8 @@
 import os.path
 
 from FaaSr_py.client.py_client_stubs import faasr_log, faasr_put_file, faasr_rank
-from utils import get_invocation_id
+
+from .utils import get_invocation_id
 
 
 def test_not_ranked(folder: str) -> None:
