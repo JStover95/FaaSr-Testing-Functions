@@ -1,7 +1,7 @@
 # Note: This will be run if 03_sync1 runs successfully and return True
-# Create a run_true.txt 
+# Create a run_true_output.txt 
 # Save it into s3 bucket using faasr_put_file
-# Arguments: folder, input, output
+# Arguments: folder, output
 # Return False -> invoke 05a_test_run_false.py
 
 from FaaSr_py.client.py_client_stubs import (
