@@ -9,11 +9,11 @@ def test_ranked(folder: str) -> None:
     rank_info = faasr_rank()
     invocation_id = get_invocation_id()
 
-    local_file = "test_ranked.txt"
+    local_file = f"test_ranked({rank_info.get('rank')}).txt"
     remote_file = os.path.join(invocation_id, local_file)
 
     with open(local_file, "w") as f:
-        f.write(f"Rank: {rank_info.get('rank')}")
+        f.write(f"Rank: {rank_info.get('rank')}\n")
         f.write(f"Max rank: {rank_info.get('max_rank')}")
 
     faasr_put_file(
