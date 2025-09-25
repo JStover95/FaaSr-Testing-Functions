@@ -16,3 +16,7 @@ class CreateInput(Enum):
 class TestPyApi(Enum):
     OUTPUT_1_CONTENT = "Test output1"
     OUTPUT_2_CONTENT = "Test output2"
+    
+class TestConditional(Enum):
+    RUN_TRUE_CONTENT = "test_run_true invoked"
+    RUN_FALSE_CONTENT = "test_run_false invoked"

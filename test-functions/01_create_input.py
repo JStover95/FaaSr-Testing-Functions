@@ -68,7 +68,7 @@ def create_input(
     with open(input4, "w") as f:
         f.write(CreateInput.INPUT_4_CONTENT.value)
         
-    remote_file = f"{invocation_id}/{input3}"
+    remote_file = f"{invocation_id}/{input4}"
     
     faasr_put_file(
         local_file=input4,
