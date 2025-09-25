@@ -29,17 +29,4 @@ def test_run_false(folder: str,
         
     except Exception as e:
         faasr_log(e)
-        return False
     
-    # Create files to test faasr_rank
-    
-    for i in range(1, 11):
-        filename = f"rank{i}.txt"
-        with open(filename, 'w') as f:
-            f.write(f"This is file {filename}\n")
-            
-        remote_file = f"{invocation_id}/rank_files/{filename}"
-        faasr_put_file(local_file=filename, remote_file=remote_file, remote_folder=folder)
-        faasr_log(
-            f"Created file: {remote_file} with content: This is file {filename}"
-        )

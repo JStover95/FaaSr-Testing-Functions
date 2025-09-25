@@ -20,3 +20,5 @@ class TestPyApi(Enum):
 class TestConditional(Enum):
     RUN_TRUE_CONTENT = "test_run_true invoked"
     RUN_FALSE_CONTENT = "test_run_false invoked"
+    
+TestRank = "Test input for rank "
