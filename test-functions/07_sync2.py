@@ -53,6 +53,4 @@ def sync2(folder: str,
         faasr_log(str(e))
         return False
     
-    # Return true if all tests passed -> 04a_test_run_true.py will be invoked
-    faasr_log("Sync1 Completed: Returning True to invoke test_run_true")
     return True
