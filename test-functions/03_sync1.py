@@ -70,7 +70,7 @@ def sync1(folder: str,
             if content != TestPyApi.OUTPUT_1_CONTENT.value:
                 raise AssertionError(f"Incorrect content in {output1_py}")
             
-        faasr_log(f"Pass: {output1_py} has the correct content: {TestPyApi.OUTPUT_1_CONTENT.value}")
+        faasr_log(f"Pass: {output1_py} has the correct content: {content}")
             
         faasr_get_file(local_file=output2_py, remote_file=output2_py, remote_folder=folder)
         with open(output2_py, "r") as f:
