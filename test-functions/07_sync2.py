@@ -8,9 +8,9 @@ from .utils.enums import TestRank
 from .utils import get_invocation_id
 
 def sync2(folder: str,
+         rank_folder: str,
          run_true_output: str,
          run_false_output: str,
-         rank_folder: str,
          )->None:
     invocation_id = get_invocation_id()
     remote_prefix = f"{folder}/{invocation_id}"
