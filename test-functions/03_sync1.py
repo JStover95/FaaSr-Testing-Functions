@@ -63,7 +63,7 @@ def sync1(folder: str,
         faasr_log("Pass: all output files are in the folder.")
         
         # Validate content of output files
-        faasr_get_file(local_file=output1_py, remote_file=output1_py, remote_folder=folder)
+        faasr_get_file(local_file=output1_py, remote_file=remote_output1_py, remote_folder=folder)
         with open(output1_py, "r") as f:
             content = f.read()
             content = content.strip()
