@@ -43,10 +43,8 @@ def test_py_api(
     faasr_log(f"Saved remote file: {remote_file} to {input3}")
 
     # Test putting output1
-    # with open(output1, "w") as f:
-    #     f.write(TestPyApi.OUTPUT_1_CONTENT.value)
     with open(output1, "w") as f:
-        f.write("WRONG CONTENT")
+        f.write(TestPyApi.OUTPUT_1_CONTENT.value)
     remote_file = f"{invocation_id}/{output1}"
     faasr_put_file(local_file=output1, remote_file=remote_file, remote_folder=folder)
     faasr_log(

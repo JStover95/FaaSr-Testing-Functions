@@ -7,7 +7,9 @@ from FaaSr_py.client.py_client_stubs import (
 from .utils import get_invocation_id
 from .utils.enums import TestRank
 
-def test_rank(folder: str)-> None:
+def test_rank(folder: str,
+              rank_folder: str
+              )-> None:
     invocation_id = get_invocation_id()
     faasr_log(f"Using invocation ID: {invocation_id}")
     
@@ -21,7 +23,7 @@ def test_rank(folder: str)-> None:
     with open(filename, 'w') as f:
         f.write(f"{TestRank}{rank_number}")
         
-    remote_file = f"{invocation_id}/rank_files/{filename}"
+    remote_file = f"{invocation_id}/{rank_folder}/{filename}"
     faasr_put_file(local_file=filename, remote_file=remote_file, remote_folder=folder)
     faasr_log(
         f"Created file: {remote_file} with content: {TestRank}{rank_number}"
