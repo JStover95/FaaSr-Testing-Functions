@@ -14,7 +14,7 @@ class CreateInput(Enum):
 
 
 class TestPyApi(Enum):
-    OUTPUT_1_CONTENT = "Test output1"
+    OUTPUT_1_CONTENT = "WRONG"
     OUTPUT_2_CONTENT = "Test output2"
     
 class TestConditional(Enum):
