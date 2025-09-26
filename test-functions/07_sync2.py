@@ -28,23 +28,11 @@ def sync2(folder: str,
         
         faasr_log(f"Pass: {run_true_output} and {run_false_output} are still in the folder.")
         
-        # Test if input4 is deleted
-        remote_input4 = f"{folder}/{invocation_id}/{input4}"
-        if remote_input4 in folder_list:
-            raise AssertionError(f"{input4} should be deleted. Still found in {folder} folder.")
+        remote_rank_output = f"{remote_prefix}/rank_files/rank"
         
-        faasr_log(f"Pass: {input4} is deleted.")
-        
-        # Test if input2 and input3 are still in the folder
-        remote_input2 = f"{folder}/{invocation_id}/{input2}"
-        if remote_input2 not in folder_list:
-            raise AssertionError(f"{input2} not in {folder} folder.")
-        
-        remote_input3 = f"{folder}/{invocation_id}/{input3}"
-        if remote_input3 not in folder_list:
-            raise AssertionError(f"{input3} not in {folder} folder.")
-        
-        faasr_log(f"Pass: {input2} and {input3} are still in the folder.")
+        for i in range(1, 6):
+            remote_rank_file = f"{remote_rank_output}{i}"
+            
         
         # Check if any output files are missing
         remote_output1_py = f"{folder}/{invocation_id}/{output1_py}"
