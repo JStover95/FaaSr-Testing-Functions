@@ -17,8 +17,9 @@ def test_rank(folder: str,
     rank_number = rank_list.get("rank")
     rank_max = rank_list.get("max_rank")
     
-    faasr_log(f"Currently on {rank_number} out of {rank_max}.")
+    faasr_log(f"Currently on rank{rank_number} out of {rank_max} ranks.")
     
+    # Create rank#.txt
     filename = f"rank{rank_number}.txt"
     with open(filename, 'w') as f:
         f.write(f"{TestRank}{rank_number}")

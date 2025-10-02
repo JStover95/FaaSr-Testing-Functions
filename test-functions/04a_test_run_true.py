@@ -20,6 +20,7 @@ def test_run_true(folder: str,
     faasr_log(f"Using invocation ID: {invocation_id}")
     
     try:
+        # Create run_true_output.txt
         with open(output, "w") as f:
             f.write(TestConditional.RUN_TRUE_CONTENT.value)
         remote_file = f"{invocation_id}/{output}"
@@ -32,7 +33,7 @@ def test_run_true(folder: str,
         faasr_log(e)
         return True
     
-    faasr_log("Test Completed: Returning False to invoke test_run_false.")
+    faasr_log("Returning False to invoke test_run_false.")
     return False
     
     

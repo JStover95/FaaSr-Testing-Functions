@@ -12,13 +12,16 @@ def sync2(folder: str,
          run_true_output: str,
          run_false_output: str,
          )->None:
+    
+    faasr_log("Starting Sync2...")
+    
     invocation_id = get_invocation_id()
     remote_prefix = f"{folder}/{invocation_id}"
     folder_list = faasr_get_folder_list(prefix=remote_prefix)
     faasr_log(f"List of objects in {remote_prefix}: {folder_list}")
     
     try:
-        # Test if run_true_output and run_false_output are still in the folder
+        # Test if run_true_output.txt and run_false_output.txt are still in the folder
         remote_run_true_output = f"{remote_prefix}/{run_true_output}"
         if remote_run_true_output not in folder_list:
             raise AssertionError(f"{remote_run_true_output} not in {folder} folder.")
@@ -27,7 +30,7 @@ def sync2(folder: str,
         if remote_run_false_output not in folder_list:
             raise AssertionError(f"{remote_run_false_output} not in {folder} folder.")
         
-        faasr_log(f"Pass: {run_true_output} and {run_false_output} are still in the folder.")
+        faasr_log(f"Pass: {run_true_output} and {run_false_output} are in the folder.")
         
         remote_rank_output = f"{remote_prefix}/{rank_folder}/rank"
         

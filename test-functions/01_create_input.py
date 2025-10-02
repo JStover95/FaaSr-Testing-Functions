@@ -3,6 +3,9 @@ from FaaSr_py.client.py_client_stubs import faasr_log, faasr_put_file
 from .utils import get_invocation_id
 from .utils.enums import CreateInput
 
+# Create input1.txt, input2.txt, input3.txt, input4.txt 
+# Put them in specified s3 bucket
+
 
 def create_input(
     folder: str,

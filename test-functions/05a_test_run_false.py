@@ -18,9 +18,10 @@ def test_run_false(folder: str,
     invocation_id = get_invocation_id()
     faasr_log(f"Using invocation ID: {invocation_id}")
     
-
+    # Create run_false_output.txt
     with open(output, "w") as f:
         f.write(TestConditional.RUN_FALSE_CONTENT.value)
+        
     remote_file = f"{invocation_id}/{output}"
     faasr_put_file(local_file=output, remote_file=remote_file, remote_folder=folder)
     faasr_log(

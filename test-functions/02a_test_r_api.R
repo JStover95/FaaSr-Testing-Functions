@@ -2,6 +2,7 @@ library(arrow)
 
 test_r_api <- function(folder, input4, input2, input3, output1, output2) {
   
+  # Helper function to retrieve invocation ID
   get_invocation_id <- function() {
     overwritten <- Sys.getenv("OVERWRITTEN", unset = NA)
     if (is.na(overwritten)) {

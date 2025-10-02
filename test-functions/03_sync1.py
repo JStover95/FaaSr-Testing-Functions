@@ -7,8 +7,7 @@ from FaaSr_py.client.py_client_stubs import (
 from .utils.enums import TestPyApi
 from .utils import get_invocation_id
 
-#Check if input1 and input 4 is deleted, input2 & input 3 remained
-#Validate content of output1 and output2 for R and Python
+# Check for required files and validate content of the files
 
 def sync1(folder: str,
          input1: str,
@@ -20,20 +19,22 @@ def sync1(folder: str,
          output1_R: str,
          output2_R: str,
          )->None:
+    
+    faasr_log("Starting Sync1...")
+    
     invocation_id = get_invocation_id()
     remote_prefix = f"{folder}/{invocation_id}"
     folder_list = faasr_get_folder_list(prefix=remote_prefix)
-    faasr_log(f"List of objects in {remote_prefix}: {folder_list}")
     
     try:
-        # Test if input1 is deleted
+        # Test if input1 is deleted by 02b_test_py_api
         remote_input1 = f"{remote_prefix}/{input1}"
         if remote_input1 in folder_list:
             raise AssertionError(f"{input1} should be deleted. Still found in {folder} folder.")
         
         faasr_log(f"Pass: {input1} is deleted.")
         
-        # Test if input4 is deleted
+        # Test if input4 is deleted by 02a_test_r_api
         remote_input4 = f"{remote_prefix}/{input4}"
         if remote_input4 in folder_list:
             raise AssertionError(f"{input4} should be deleted. Still found in {folder} folder.")
@@ -49,7 +50,7 @@ def sync1(folder: str,
         if remote_input3 not in folder_list:
             raise AssertionError(f"{input3} not in {folder} folder.")
         
-        faasr_log(f"Pass: {input2} and {input3} are still in the folder.")
+        faasr_log(f"Pass: {input2} and {input3} are in the folder.")
         
         # Check if any output files are missing (using full path)
         remote_output1_py = f"{remote_prefix}/{output1_py}"
