@@ -1,11 +1,11 @@
 from FaaSr_py.client.py_client_stubs import (
     faasr_delete_file,
     faasr_get_file,
+    faasr_invocation_id,
     faasr_log,
     faasr_put_file,
 )
 
-from .utils import get_invocation_id
 from .utils.enums import TestPyApi
 
 
@@ -17,7 +17,7 @@ def test_py_api(
     output1: str,
     output2: str,
 ) -> None:
-    invocation_id = get_invocation_id()
+    invocation_id = faasr_invocation_id()
     faasr_log(f"Using invocation ID: {invocation_id}")
 
     # Test deleting input1
